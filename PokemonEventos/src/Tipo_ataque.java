@@ -1,4 +1,4 @@
-public enum Ataques_Word {
+public enum Tipo_ataque {
     //Example of attacks
     Fireball, Thunderbolt, Icebeam, Earthquake, Tsunami, 
     Tornado, Hurricane, Volcano, Meteor, Blackhole, 
