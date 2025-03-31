@@ -50,7 +50,7 @@ public class Pokemon {
         this.hp = hp;
     }
 
-    public void atacar(){
+    public void atacar(Pokemon enemigo){
         System.out.println("Tus ataques:");
         for (int i=0; i<ataques.length; i++){
             System.out.println((i+1) + ". " + ataques[i].getNombre());
@@ -61,7 +61,7 @@ public class Pokemon {
                     if (eleccion>0 && eleccion<=ataques.length){
                         Ataque ataqueElegido = ataques[(eleccion-1)];
                         System.out.println(nombre + ", " + "¡" + ataqueElegido.getNombre() + "!");
-                        ataqueElegido.potenciaAtaque(this);
+                        ataqueElegido.potenciaAtaque(enemigo);
                         // Establecer lógica para dañar al enemigo
                         break;
                     } else {
