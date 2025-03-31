@@ -96,5 +96,3 @@ public class Pokemon {
         this.hp = (int)(this.hp * this.aumento);
         System.out.println("¡ " + nombre + " ha evolucionado!, hp++ y atk++");
     }
-    }
-}
