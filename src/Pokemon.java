@@ -1,12 +1,14 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Pokemon {
     private String nombre;
-    private tipos tipo;
-    private ArrayList<Ataque> ataques = new ArrayList<>();
-    private int ph;
+    private TipoPokemon tipo;
+    private Ataque[] ataques = new Ataque[4];
+    private int hp;
+    static Scanner scanner = new Scanner(System.in);
     private boolean vivo = true;
+    private float aumento = 1.0f;
+    private int contador = 0;
 
     public String getNombre() {
         return nombre;
@@ -14,23 +16,23 @@ public class Pokemon {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public tipos getTipo() {
+    public TipoPokemon getTipo() {
         return tipo;
     }
-    public void setTipo(tipos tipo) {
+    public void setTipo(TipoPokemon tipo) {
         this.tipo = tipo;
     }
-    public ArrayList<Ataque> getAtaques() {
+    public Ataque[] getAtaques() {
         return ataques;
     }
-    public void setAtaques(ArrayList<Ataque> ataques) {
+    public void setAtaques(Ataque[] ataques) {
         this.ataques = ataques;
     }
-    public int getPh() {
-        return ph;
+    public int getHp() {
+        return hp;
     }
-    public void setPh(int ph) {
-        this.ph = ph;
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public boolean getVivo() {
@@ -41,26 +43,25 @@ public class Pokemon {
         this.vivo = vivo;
     }
 
-    public Pokemon(String nombre, tipos tipo, ArrayList<Ataque> ataques, int ph){
+    public Pokemon(String nombre, TipoPokemon tipo, Ataque[] ataques, int hp){
         this.nombre = nombre;
         this.tipo = tipo;
         this.ataques = ataques;
-        this.ph = ph;
+        this.hp = hp;
     }
 
     public void atacar(){
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Tus ataques:");
-        for (int i=0; i<ataques.size(); i++){
-            System.out.println((i+1) + ". " + ataques.get(i).getNombre());
+        for (int i=0; i<ataques.length; i++){
+            System.out.println((i+1) + ". " + ataques[i].getNombre());
         }
             while(true){
                 if (scanner.hasNextInt()) {
                     int eleccion = scanner.nextInt();
-                    if (eleccion>0 && eleccion<=ataques.size()){
-                        Ataque ataqueElegido = ataques.get((eleccion-1));
+                    if (eleccion>0 && eleccion<=ataques.length){
+                        Ataque ataqueElegido = ataques[(eleccion-1)];
                         System.out.println(nombre + ", " + "¡" + ataqueElegido.getNombre() + "!");
-                        ataqueElegido.PotenciaAtaque();
+                        ataqueElegido.potenciaAtaque(this);
                         // Establecer lógica para dañar al enemigo
                         break;
                     } else {
@@ -72,18 +73,31 @@ public class Pokemon {
                     scanner.next();
                 }
         }
-        scanner.close();
     }
 
     public void daño(int poder_atk){
-        if(poder_atk > ph){
-            ph = 0;
+        int atk = (int)(poder_atk * this.aumento);
+        if(atk >= hp){
+            hp = 0;
             vivo = false;
             System.out.println("Moriste");
             // Establecer lógica para cuando muera el pokemon
         } else {
-            ph -= poder_atk;
-            System.out.println(nombre + "ha recibido " + poder_atk + " daño, ph = " + ph);
+            hp -= atk;
+            System.out.println(nombre + " ha recibido " + atk + " daño, hp = " + hp);
         }
+    }
+
+    public void evolucionar(){
+        contador++;
+        if (contador==1){
+            this.aumento = 1.5f;
+        } else if (contador==2){
+            this.aumento = 2f;
+        } else {
+            System.out.println("Tu pokemon está en su nivel max.");
+        }
+        this.hp = (int)(this.hp * this.aumento);
+        System.out.println("¡ " + nombre + " ha evolucionado!, hp++ y atk++");
     }
 }
