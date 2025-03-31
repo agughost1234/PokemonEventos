@@ -1,11 +1,11 @@
 public class Ataque {
-    private TipoAtaque nombre;
+    private Tipo_ataque_pokemon nombre;
     private int poder;
 
-    public TipoAtaque getNombre() {
+    public Tipo_ataque_pokemon getNombre() {
         return nombre;
     }
-    public void setNombre(TipoAtaque nombre) {
+    public void setNombre(Tipo_ataque_pokemon nombre) {
         this.nombre = nombre;
     }
     public int getPoder() {
@@ -15,7 +15,7 @@ public class Ataque {
         this.poder = poder;
     }
 
-    public Ataque(TipoAtaque nombre, int poder){
+    public Ataque(Tipo_ataque_pokemon nombre, int poder){
         this.nombre = nombre;
         this.poder = poder;
     }
