@@ -24,6 +24,7 @@ public class Entrenador {
         System.out.print("Ingrese el nombre del entrenador: ");
         //trim()  para eliminar los espacios en blanco al inicio y al final de la cadena
         String nombre = scanner.nextLine().trim();
+        scanner.close();
         return new Entrenador(nombre);
     }
 
