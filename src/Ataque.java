@@ -19,8 +19,4 @@ public class Ataque {
         this.nombre = nombre;
         this.poder = poder;
     }
-
-    public void potenciaAtaque(Pokemon pokemon){
-        pokemon.daño(poder);
-    }
 }
