@@ -7,8 +7,7 @@ public class Pokemon {
     private int hp;
     static Scanner scanner = new Scanner(System.in);
     private boolean vivo = true;
-    private float aumento = 1.0f;
-    private int contador = 0;
+    private float aumento = 1.0f; // CONTROL DE EVOLUCIÓN DE LOS POKEMONES
 
     public String getNombre() {
         return nombre;
@@ -61,7 +60,7 @@ public class Pokemon {
                     if (eleccion>0 && eleccion<=ataques.length){
                         Ataque ataqueElegido = ataques[(eleccion-1)];
                         System.out.println(nombre + ", " + "¡" + ataqueElegido.getNombre() + "!");
-                        ataqueElegido.potenciaAtaque(enemigo);
+                        enemigo.daño(ataqueElegido.getPoder());
                         // Establecer lógica para dañar al enemigo
                         break;
                     } else {
@@ -88,16 +87,14 @@ public class Pokemon {
         }
     }
 
-    public void evolucionar(){
-        contador++;
+    public void evolucionar(int contador) {
         if (contador==1){
             this.aumento = 1.5f;
         } else if (contador==2){
             this.aumento = 2f;
-        } else {
-            System.out.println("Tu pokemon está en su nivel max.");
-        }
+
         this.hp = (int)(this.hp * this.aumento);
         System.out.println("¡ " + nombre + " ha evolucionado!, hp++ y atk++");
+    }
     }
 }
