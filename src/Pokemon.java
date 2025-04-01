@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Pokemon {
     private String nombre;
-    private TipoPokemon tipo;
+    private Tipo_ataque_pokemon tipo;
     private Ataque[] ataques = new Ataque[4];
     private int hp;
     static Scanner scanner = new Scanner(System.in);
@@ -15,10 +15,10 @@ public class Pokemon {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public TipoPokemon getTipo() {
+    public Tipo_ataque_pokemon getTipo() {
         return tipo;
     }
-    public void setTipo(TipoPokemon tipo) {
+    public void setTipo(Tipo_ataque_pokemon tipo) {
         this.tipo = tipo;
     }
     public Ataque[] getAtaques() {
@@ -42,7 +42,7 @@ public class Pokemon {
         this.vivo = vivo;
     }
 
-    public Pokemon(String nombre, TipoPokemon tipo, Ataque[] ataques, int hp){
+    public Pokemon(String nombre, Tipo_ataque_pokemon tipo, Ataque[] ataques, int hp){
         this.nombre = nombre;
         this.tipo = tipo;
         this.ataques = ataques;
@@ -96,3 +96,5 @@ public class Pokemon {
         this.hp = (int)(this.hp * this.aumento);
         System.out.println("¡ " + nombre + " ha evolucionado!, hp++ y atk++");
     }
+}
+}
