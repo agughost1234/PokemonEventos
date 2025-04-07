@@ -7,8 +7,8 @@ Este proyecto es un simulador de batallas Pokémon desarrollado en Java.
 ## 👥 Integrantes
 - Samuel Agudelo Sosa - Código: 202459419
 - Sebastián Saenz Mejia - Código: 202459528
-- Samuel Romero Martinez - Código: 202459464
-- José Manuel Castaño Rojas - Código 202459522
+- Samuel Romero Martinez - Código: 202459464(Temporalmente inmovilizado el brazo derecho)
+- José Manuel Castaño Rojas - Código 202459522(Acordado)
 
 ## 🚀 Tecnologías utilizadas
 - Java  
