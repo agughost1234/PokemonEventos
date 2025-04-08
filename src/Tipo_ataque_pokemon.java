@@ -13,11 +13,11 @@ public enum Tipo_ataque_pokemon {
         this.counter = counter;
     }
 
-    public String[] get_ataques() {
+    public String[] getAtaques() {
         return ataques;
     }
 
-    public Tipo_ataque_pokemon[] get_counter() {
+    public Tipo_ataque_pokemon[] getCounter() {
         return counter;
     }
     
