@@ -63,9 +63,7 @@ public class Entrenador extends SerVivo{
         }
     }
   for (int i = 0; i < 3; i++) {
-    //convertir instanciar pokemon a un método estático
-      Pokemon pokemon = null;
-       equipo.add(pokemon.InstanciarPokemon(equipoAleatorio));
+      //  equipo.add(Pokemon.instanciarPokemon(equipoAleatorio));
       
   }
 
