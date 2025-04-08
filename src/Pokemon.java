@@ -166,6 +166,7 @@ public class Pokemon extends SerVivo{
     public void daño(float poder_atk, Pokemon enemigo){
         float atk = (float)(poder_atk * this.aumento);
         if(Arrays.asList(counters).contains(enemigo.getTipo())){
+            System.out.println("¡Ataque súper efectivo! " + enemigo.getNombre() + "es counter de " + this.getNombre());
             atk *= 1.3f;
         }
         if(atk >= hp){
@@ -184,10 +185,10 @@ public class Pokemon extends SerVivo{
             this.aumento = 1.5f;
         } else if (contador==2){
             this.aumento = 2f;
+        }
 
         this.hp = (int)(this.hp * this.aumento);
         System.out.println("¡ " + nombre + " ha evolucionado!, hp++ y atk++");
-        }
     }
 
     public static float aleatorio(float max, float min){
