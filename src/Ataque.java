@@ -1,21 +1,21 @@
 public class Ataque {
-    private Tipo_ataque_pokemon nombre;
-    private int poder;
+    private String nombre;
+    private float poder;
 
-    public Tipo_ataque_pokemon getNombre() {
+    public String getNombre() {
         return nombre;
     }
-    public void setNombre(Tipo_ataque_pokemon nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public int getPoder() {
+    public float getPoder() {
         return poder;
     }
-    public void setPoder(int poder) {
+    public void setPoder(float poder) {
         this.poder = poder;
     }
 
-    public Ataque(Tipo_ataque_pokemon nombre, int poder){
+    public Ataque(String nombre, float poder){
         this.nombre = nombre;
         this.poder = poder;
     }
