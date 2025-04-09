@@ -25,7 +25,7 @@ Este proyecto es un simulador de batallas Pokémon desarrollado en Java.
    - `servivo/` → Padre de entrenador y pokemon
    - `tipoataquepokemon/` → Creación de ataques y tipo
 ### 📊 Diagrama UML del Juego
-![Diagrama UML del Juego](imagenes/Diagrama_UML.png)
+![Diagrama UML del Juego](imagenes/Diagrama UML.png)
 
 
 ## 🔧 Instrucciones
