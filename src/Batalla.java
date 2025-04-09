@@ -12,8 +12,8 @@ public class Batalla {
         System.out.println("\n ¡Comienza la batalla entre " + e1.getNombre() + " y " + e2.getNombre() + "!");
 
         // Creamos listas con los Pokémon disponibles (copias del equipo original)
-        ArrayList<Pokemon> disponibles1 = new ArrayList<>(e1.getEquipo());
-        ArrayList<Pokemon> disponibles2 = new ArrayList<>(e2.getEquipo());
+        ArrayList<Pokemon> disponibles1 = new ArrayList<Pokemon>(e1.getEquipo());
+        ArrayList<Pokemon> disponibles2 = new ArrayList<Pokemon>(e2.getEquipo());
 
         // Seleccionamos el primer Pokémon que participará del equipo (menos HP o aleatorio)
         Pokemon activo1 = seleccionarInicial(disponibles1);
