@@ -3,7 +3,6 @@ public class Main {
         
         Entrenador e1 = Entrenador.capturarEntrenador();
         Entrenador e2 = Entrenador.capturarEntrenador();
-        Batalla.batallaPorEquipos(e1, e2);;
+        Batalla.batallaPorEquipos(e1, e2);
     }
 }
-

@@ -17,9 +17,17 @@ Este proyecto es un simulador de batallas Pokémon desarrollado en Java.
 
 ## 🏗️ Estructura del código
 📂 `src/`
-   - `pokemon/` → Clases de los Pokémon  
-   - `juego/` → Lógica del juego  
-   - `main/` → Punto de entrada  
+   - `ataque/` → Manejo de ataques
+   - `batalla` → Lógica del juego  
+   - `entrenador/` →Manejo del equipo
+   - `main/` → Punto de entrada 
+   - `pokemon/` → Manejo de los Pokémones 
+   - `servivo/` → Padre de entrenador y pokemon
+   - `tipoataquepokemon/` → Creación de ataques y tipo
+
+### 📊 Diagrama UML del Juego
+![Diagrama UML del Juego](imagenes/DiagramaUML.png)
+
 
 ## 🔧 Instrucciones
 1. Clonar el repositorio:  
