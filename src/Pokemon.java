@@ -4,15 +4,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Pokemon extends SerVivo{
-    private String nombre;
     private Tipo_ataque_pokemon tipo;
     private ArrayList<Ataque> ataques = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private boolean vivo = true;
     private float hp;
     private float aumento = 1.0f; // CONTROL DE EVOLUCIÓN DE LOS POKEMONES
-    private Tipo_ataque_pokemon[] counters;
-    private ArrayList<Integer> repetidos = new ArrayList<>();
 
     public Tipo_ataque_pokemon getTipo() {
         return tipo;
@@ -48,44 +45,53 @@ public class Pokemon extends SerVivo{
         this.hp = hp;
     }
 
-    public ArrayList<Ataque> capturarAtaques(Tipo_ataque_pokemon tipo_pokemon, boolean confirmo){
+    public static ArrayList<Ataque> capturarAtaques(Tipo_ataque_pokemon tipo_pokemon, boolean confirmo, String nombre_pokemon){
         String nombre_atk;
         float poder_atk;
+        int eleccion;
         String[] arsenal;
+        ArrayList<Ataque> ataques = new ArrayList<>();
+        ArrayList<Integer> repetidos = new ArrayList<>();
 
         for (Tipo_ataque_pokemon clase: Tipo_ataque_pokemon.values()){
             if(tipo_pokemon == clase){
                 arsenal = clase.getAtaques();
-                counters = clase.getCounter();
                 if (confirmo == true){
-                    System.out.println("ATAQUES DISPONIBLES (TIPO " + tipo + ")");
+                    System.out.println("ATAQUES DISPONIBLES (TIPO " + tipo_pokemon + ")");
                     for(int i=0; i<arsenal.length; i++){
                         System.out.println((i+1) + "." + arsenal[i]);
                     }
-                    // AGREGAR ANOTACIÓN @Deprecated PARA QUE NO JODA i++ jajajajaja
                     for (int i=0; i<4; i++){
-                        System.out.println("Tu ataque # " + (i+1) + " (" + nombre + ")");
+                        System.out.println("Tu ataque # " + (i+1) + " (" + nombre_pokemon + ")");
                         while(true){
-                            if (scanner.hasNextInt()) {
-                                int eleccion = scanner.nextInt();
+                            if (scanner.hasNextInt()){
+                                eleccion = scanner.nextInt();
+                                scanner.nextLine();
+                                if(repetidos.contains(eleccion)){
+                                    while(repetidos.contains(eleccion)){
+                                        System.out.println("¡Selecciona un ataque diferente!");
+                                        eleccion = scanner.nextInt();
+                                        scanner.nextLine();
+                                    }
+                                }
+                                repetidos.add(eleccion);
                                 if (eleccion>0 && eleccion<=arsenal.length){
                                     nombre_atk = arsenal[(eleccion-1)];
-                                    poder_atk = aleatorio(100f, 10f);
+                                    poder_atk = aleatorioFloat(100f, 10f);
                                     ataques.add(new Ataque(nombre_atk, poder_atk));
+                                    break;
                                 } else {
                                     System.out.println("¡Ey! Elige una opción válida");
                                 }
-                            }
-                            else {
+                            } else {
                                 System.out.println("Por favor, elige un número.");
-                                scanner.next();
                             }
                         }
                     }
                 } else if (confirmo == false){
                     for (int i=0; i<4; i++){
-                        nombre_atk = arsenal[aleatorio(arsenal.length, 0, true)];
-                        poder_atk = aleatorio(100f, 10f);
+                        nombre_atk = arsenal[aleatorioInt(arsenal.length, 0, true)];
+                        poder_atk = aleatorioFloat(100f, 10f);
                         ataques.add(new Ataque(nombre_atk, poder_atk));
                     }
                 }
@@ -94,22 +100,37 @@ public class Pokemon extends SerVivo{
         return ataques;
     }
 
-    public Pokemon InstanciarPokemon(boolean confirmo){
-        
-        int eleccion;
-        hp = aleatorio(1000f, 100f);
+    public static Pokemon InstanciarPokemon(boolean confirmo){
+
+        int hp_pokemon;
+        Tipo_ataque_pokemon tipo_pokemon;
+        String nombre_pokemon;
+        ArrayList<Ataque> ataques_pokemon = new ArrayList<>();
+    
+        hp_pokemon = aleatorioInt(1000, 100, false);
 
         System.out.println("¿quien ES ese POKEMON? 🤔🕶️");
         System.out.println("¡Es hora de elegir tu Pokemon!");
 
         System.out.println("¿Cuál es su nombre?");
-        nombre = scanner.nextLine().trim();
+        nombre_pokemon = scanner.nextLine().trim();
 
-        System.out.println("¡Su tipo!");
+        tipo_pokemon = Pokemon.elegirTipo(confirmo);
+        ataques_pokemon = Pokemon.capturarAtaques(tipo_pokemon, confirmo, nombre_pokemon);
+        System.out.println("Las unidades de vida (HP) y la potencia de cada ataque son aleatorios, ¡Buena suerte!");
+
+        return new Pokemon(nombre_pokemon, tipo_pokemon, ataques_pokemon, hp_pokemon);
+    }
+
+    public static Tipo_ataque_pokemon elegirTipo(boolean confirmo){
+        int eleccion;
+        Tipo_ataque_pokemon tipo_pokemon;
+
         if(confirmo == false){
-            eleccion = aleatorio(Tipo_ataque_pokemon.values().length, 0, false);
-            tipo = Tipo_ataque_pokemon.values()[eleccion];
+            eleccion = aleatorioInt(Tipo_ataque_pokemon.values().length, 0, false);
+            tipo_pokemon = Tipo_ataque_pokemon.values()[eleccion];
         } else {
+            System.out.println("¡Su tipo!");
             int contador = 0;
             for(Tipo_ataque_pokemon clase : Tipo_ataque_pokemon.values()){
                 contador++;
@@ -117,40 +138,35 @@ public class Pokemon extends SerVivo{
             }
             while(true){
                 if(scanner.hasNextInt()){
-
                     eleccion = scanner.nextInt();
+                    scanner.nextLine();
                     if(eleccion>0 && eleccion<=Tipo_ataque_pokemon.values().length){
-                        tipo = Tipo_ataque_pokemon.values()[eleccion-1];
+                        tipo_pokemon = Tipo_ataque_pokemon.values()[eleccion-1];
                         break;
                     } else {
                         System.out.println("Por favor, selecciona una opción dentro del rango");
                     }
                 } else {
                     System.out.println("¡Elige un número! 😠");
-                    scanner.next();
                 }
             }
         }
-
-        ataques = this.capturarAtaques(tipo, confirmo);
-        System.out.println("Las unidades de vida (HP) y la potencia de cada ataque son aleatorios, ¡Buena suerte!");
-
-        return new Pokemon(nombre, tipo, ataques, hp);
+        return tipo_pokemon;
     }
 
     public void atacar(Pokemon enemigo){
-        System.out.println("Tus ataques:");
+        System.out.println("Tus ataques (" + this.getNombre() + "):");
         for (int i=0; i<ataques.size(); i++){
-            System.out.println((i+1) + ". " + ataques.get(i).getNombre());
+            System.out.println((i+1) + ". " + ataques.get(i).getNombre() + " - daño: " + ataques.get(i).getPoder());
         }
             while(true){
                 if (scanner.hasNextInt()) {
                     int eleccion = scanner.nextInt();
+                    scanner.nextLine();
                     if (eleccion>0 && eleccion<=ataques.size()){
                         Ataque ataqueElegido = ataques.get((eleccion-1));
-                        System.out.println(nombre + ", " + "¡" + ataqueElegido.getNombre() + "!");
-                        enemigo.daño(ataqueElegido.getPoder(), enemigo);
-                        // Establecer lógica para dañar al enemigo
+                        System.out.println(this.getNombre() + ", " + "¡" + ataqueElegido.getNombre() + "!");
+                        enemigo.daño(ataqueElegido.getPoder(), this);
                         break;
                     } else {
                         System.out.println("¡Ey! Elige una opción válida");
@@ -158,24 +174,26 @@ public class Pokemon extends SerVivo{
                 }
                 else {
                     System.out.println("Por favor, elige un número.");
-                    scanner.next();
                 }
             }
     }
 
     public void daño(float poder_atk, Pokemon enemigo){
+        Tipo_ataque_pokemon[] counters;
+        counters = this.getTipo().getCounter();
+
         float atk = (float)(poder_atk * this.aumento);
         if(Arrays.asList(counters).contains(enemigo.getTipo())){
+            System.out.println("¡Ataque súper efectivo! " + enemigo.getNombre() + " es counter de " + this.getNombre());
             atk *= 1.3f;
         }
-        if(atk >= hp){
-            hp = 0;
+        if(atk >= this.hp){
+            this.hp = 0;
             vivo = false;
-            System.out.println("Moriste");
-            // Establecer lógica para cuando muera el pokemon
+            System.out.println(this.getNombre() + " ha sido derrotado...");
         } else {
-            hp -= atk;
-            System.out.println(nombre + " ha recibido " + atk + " daño, hp = " + hp);
+            this.hp -= atk;
+            System.out.println(this.getNombre() + " ha recibido " + atk + " daño, hp = " + hp);
         }
     }
 
@@ -184,18 +202,19 @@ public class Pokemon extends SerVivo{
             this.aumento = 1.5f;
         } else if (contador==2){
             this.aumento = 2f;
-
-        this.hp = (int)(this.hp * this.aumento);
-        System.out.println("¡ " + nombre + " ha evolucionado!, hp++ y atk++");
         }
+        this.hp = (float)(this.hp * this.aumento);
+        System.out.println("¡ " + this.getNombre() + " ha evolucionado!, hp++ y atk++");
     }
 
-    public static float aleatorio(float max, float min){
+    public static float aleatorioFloat(float max, float min){
         Random r = new Random(); 
         float resultado = r.nextFloat() * (max - min) + min;
         return resultado;
     }
-    private int aleatorio(int max, int min, boolean repetirImporta){
+
+    private static int aleatorioInt(int max, int min, boolean repetirImporta){
+        ArrayList<Integer> repetidos = new ArrayList<>();
         Random r = new Random(); 
         int resultado = r.nextInt(max - min + 1) + min;
         if (repetirImporta == true){
@@ -214,6 +233,6 @@ public class Pokemon extends SerVivo{
 
     @Override
     public void celebracion(){
-        System.out.println("🏆");
+        System.out.println("Yupii");
     }
 }
