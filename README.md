@@ -17,10 +17,13 @@ Este proyecto es un simulador de batallas Pokémon desarrollado en Java.
 
 ## 🏗️ Estructura del código
 📂 `src/`
-   - `pokemon/` → Clases de los Pokémon  
-   - `juego/` → Lógica del juego  
-   - `main/` → Punto de entrada  
-
+   - `ataque/` → Manejo de ataques
+   - `batalla` → Lógica del juego  
+   - `entrenador/` → Manejo de ataques   
+   - `main/` → Punto de entrada 
+   - `pokemon/` → Clases de los Pokémon    
+   - `servivo/` → Manejo de ataques
+   - `tipoAtaquePokemon/` → Manejo de ataques
 ## 🔧 Instrucciones
 1. Clonar el repositorio:  
    ```bash
