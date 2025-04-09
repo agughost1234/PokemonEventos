@@ -5,19 +5,19 @@ import java.util.Scanner;
 
 public class Pokemon extends SerVivo{
     private String nombre;
-    private Tipo_ataque_pokemon tipo;
+    private TipoAtaquePokemon tipo;
     private ArrayList<Ataque> ataques = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private boolean vivo = true;
     private float hp;
     private float aumento = 1.0f; // CONTROL DE EVOLUCIÓN DE LOS POKEMONES
-    private Tipo_ataque_pokemon[] counters;
+    private TipoAtaquePokemon[] counters;
     private ArrayList<Integer> repetidos = new ArrayList<>();
 
-    public Tipo_ataque_pokemon getTipo() {
+    public TipoAtaquePokemon getTipo() {
         return tipo;
     }
-    public void setTipo(Tipo_ataque_pokemon tipo) {
+    public void setTipo(TipoAtaquePokemon tipo) {
         this.tipo = tipo;
     }
     public ArrayList<Ataque> getAtaques() {
@@ -41,19 +41,19 @@ public class Pokemon extends SerVivo{
         this.vivo = vivo;
     }
 
-    public Pokemon(String nombre, Tipo_ataque_pokemon tipo, ArrayList<Ataque> ataques, float hp){
+    public Pokemon(String nombre, TipoAtaquePokemon tipo, ArrayList<Ataque> ataques, float hp){
         super(nombre);
         this.tipo = tipo;
         this.ataques = ataques;
         this.hp = hp;
     }
 
-    public ArrayList<Ataque> capturarAtaques(Tipo_ataque_pokemon tipo_pokemon, boolean confirmo){
+    public ArrayList<Ataque> capturarAtaques(TipoAtaquePokemon tipo_pokemon, boolean confirmo){
         String nombre_atk;
         float poder_atk;
         String[] arsenal;
 
-        for (Tipo_ataque_pokemon clase: Tipo_ataque_pokemon.values()){
+        for (TipoAtaquePokemon clase: TipoAtaquePokemon.values()){
             if(tipo_pokemon == clase){
                 arsenal = clase.getAtaques();
                 counters = clase.getCounter();
@@ -107,11 +107,11 @@ public class Pokemon extends SerVivo{
 
         System.out.println("¡Su tipo!");
         if(confirmo == false){
-            eleccion = aleatorio(Tipo_ataque_pokemon.values().length, 0, false);
-            tipo = Tipo_ataque_pokemon.values()[eleccion];
+            eleccion = aleatorio(TipoAtaquePokemon.values().length, 0, false);
+            tipo = TipoAtaquePokemon.values()[eleccion];
         } else {
             int contador = 0;
-            for(Tipo_ataque_pokemon clase : Tipo_ataque_pokemon.values()){
+            for(TipoAtaquePokemon clase : TipoAtaquePokemon.values()){
                 contador++;
                 System.out.println(contador + ". " + clase);
             }
@@ -119,8 +119,8 @@ public class Pokemon extends SerVivo{
                 if(scanner.hasNextInt()){
 
                     eleccion = scanner.nextInt();
-                    if(eleccion>0 && eleccion<=Tipo_ataque_pokemon.values().length){
-                        tipo = Tipo_ataque_pokemon.values()[eleccion-1];
+                    if(eleccion>0 && eleccion<=TipoAtaquePokemon.values().length){
+                        tipo = TipoAtaquePokemon.values()[eleccion-1];
                         break;
                     } else {
                         System.out.println("Por favor, selecciona una opción dentro del rango");
