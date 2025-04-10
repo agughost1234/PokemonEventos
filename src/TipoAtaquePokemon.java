@@ -1,4 +1,5 @@
-public enum Tipo_ataque_pokemon {
+public enum TipoAtaquePokemon {
+    
     //Constantes del enum: cada tipo de ataque tiene un nombre y una lista de ataques asociados
     // Los nombres de los ataques son inventados por el mejor creador de ataques por lo que son los mejores ataques creados
     FUEGO(new String[]{"Infiernum", "inceniracion derretidora", "Ultrafuego", "Calor infrajuliano", "Explosion infernal", "Lavabosa", "fueguisimo", "Latigo lava", "Bola de fuego", "Llamarada"}, null),
@@ -9,10 +10,10 @@ public enum Tipo_ataque_pokemon {
 
 // Atributos de cada tipo de ataque: 'ataques' es una lista de nombres de ataques que pertenecen a ese tipo.
     private String[] ataques;
-    private Tipo_ataque_pokemon[] counter;
+    private TipoAtaquePokemon[] counter;
 
 // Constructor del enum: recibe los ataques y los counters
-    private Tipo_ataque_pokemon(String[] ataques, Tipo_ataque_pokemon[] counter) {
+    private TipoAtaquePokemon(String[] ataques, TipoAtaquePokemon[] counter) {
         this.ataques = ataques;
         this.counter = counter;
     }
@@ -21,16 +22,16 @@ public enum Tipo_ataque_pokemon {
         return ataques;
     }
 // Método  para obtener los tipos que contrarrestan a este tipo
-    public Tipo_ataque_pokemon[] getCounter() {
+    public TipoAtaquePokemon[] getCounter() {
         return counter;
     }
      // Bloque estático: se ejecuta una vez al cargar la clase
     // Aquí es donde realmente se asignan los tipos que contrarrestan a cada tipo de pokemon
     static { 
-        FUEGO.counter = new Tipo_ataque_pokemon[]{AGUA};
-        AGUA.counter = new Tipo_ataque_pokemon[]{PLANTA};
-        PLANTA.counter = new Tipo_ataque_pokemon[]{FUEGO};
-        ELECTRICO.counter = new Tipo_ataque_pokemon[]{TIERRA, PLANTA};
-        TIERRA.counter = new Tipo_ataque_pokemon[]{ELECTRICO, AGUA};
+        FUEGO.counter = new TipoAtaquePokemon[]{AGUA};
+        AGUA.counter = new TipoAtaquePokemon[]{PLANTA};
+        PLANTA.counter = new TipoAtaquePokemon[]{FUEGO};
+        ELECTRICO.counter = new TipoAtaquePokemon[]{TIERRA, PLANTA};
+        TIERRA.counter = new TipoAtaquePokemon[]{ELECTRICO, AGUA};
     }
 }

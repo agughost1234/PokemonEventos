@@ -3,18 +3,20 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Pokemon extends SerVivo{
-    private Tipo_ataque_pokemon tipo;
+public class Pokemon extends SerVivo {
+
+    // Inicializando atributos
+    private TipoAtaquePokemon tipo;
     private ArrayList<Ataque> ataques = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    private boolean vivo = true;
+    private boolean vivo; // vivo se encanga de inhabilitar al Pokemon cuando hp=0
     private float hp;
-    private float aumento = 1.0f; // CONTROL DE EVOLUCIÓN DE LOS POKEMONES
 
-    public Tipo_ataque_pokemon getTipo() {
+    // Getters y Setters
+    public TipoAtaquePokemon getTipo() {
         return tipo;
     }
-    public void setTipo(Tipo_ataque_pokemon tipo) {
+    public void setTipo(TipoAtaquePokemon tipo) {
         this.tipo = tipo;
     }
     public ArrayList<Ataque> getAtaques() {
@@ -38,118 +40,45 @@ public class Pokemon extends SerVivo{
         this.vivo = vivo;
     }
 
-    public Pokemon(String nombre, Tipo_ataque_pokemon tipo, ArrayList<Ataque> ataques, float hp){
+    // Constructor
+    public Pokemon(String nombre, TipoAtaquePokemon tipo, ArrayList<Ataque> ataques, float hp) {
+        // Trayendo herencia: atributo nombre
         super(nombre);
         this.tipo = tipo;
         this.ataques = ataques;
         this.hp = hp;
+        this.vivo = true;
     }
 
-    public static ArrayList<Ataque> capturarAtaques(Tipo_ataque_pokemon tipo_pokemon, boolean confirmo, String nombre_pokemon){
-        String nombre_atk;
-        float poder_atk;
+    // Método para que el usuario elija el tipo de Pokemon
+    public static TipoAtaquePokemon elegirTipo(boolean confirmo) {
+
+        // Inicializando variables locales
         int eleccion;
-        String[] arsenal;
-        ArrayList<Ataque> ataques = new ArrayList<>();
-        ArrayList<Integer> repetidos = new ArrayList<>();
+        TipoAtaquePokemon tipoPokemon;
 
-        for (Tipo_ataque_pokemon clase: Tipo_ataque_pokemon.values()){
-            if(tipo_pokemon == clase){
-                arsenal = clase.getAtaques();
-                if (confirmo == true){
-                    System.out.println("ATAQUES DISPONIBLES (TIPO " + tipo_pokemon + ")");
-                    for(int i=0; i<arsenal.length; i++){
-                        System.out.println((i+1) + "." + arsenal[i]);
-                    }
-                    for (int i=0; i<4; i++){
-                        System.out.println("Tu ataque # " + (i+1) + " (" + nombre_pokemon + ")");
-                        while(true){
-                            if (scanner.hasNextInt()){
-                                eleccion = scanner.nextInt();
-                                scanner.nextLine();
-                                if(repetidos.contains(eleccion)){
-                                    while(repetidos.contains(eleccion)){
-                                        System.out.println("¡Selecciona un ataque diferente!");
-                                        eleccion = scanner.nextInt();
-                                        scanner.nextLine();
-                                    }
-                                }
-                                repetidos.add(eleccion);
-                                if (eleccion>0 && eleccion<=arsenal.length){
-                                    nombre_atk = arsenal[(eleccion-1)];
-                                    poder_atk = aleatorioFloat(100f, 10f);
-                                    ataques.add(new Ataque(nombre_atk, poder_atk));
-                                    break;
-                                } else {
-                                    System.out.println("¡Ey! Elige una opción válida");
-                                    scanner.nextLine();
-                                }
-                            } else {
-                                System.out.println("Por favor, elige un número.");
-                                scanner.nextLine();
-                            }
-                        }
-                    }
-                } else if (confirmo == false){
-                    for (int i=0; i<4; i++){
-                        nombre_atk = arsenal[aleatorioInt(arsenal.length-1, 0, true)];
-                        poder_atk = aleatorioFloat(100f, 50f);
-                        ataques.add(new Ataque(nombre_atk, poder_atk));
-                    }
-                }
-            }
-        }
-        return ataques;
-    }
-
-    public static Pokemon InstanciarPokemon(boolean confirmo){
-
-        int hp_pokemon;
-        Tipo_ataque_pokemon tipo_pokemon;
-        String nombre_pokemon = "";
-        ArrayList<Ataque> ataques_pokemon = new ArrayList<>();
-    
-        hp_pokemon = aleatorioInt(300, 50, false);
-
-        System.out.println("¿quien ES ese POKEMON? 🤔🕶️");
-        System.out.println("¡Es hora de elegir tu Pokemon!");
-
-        while (nombre_pokemon.isEmpty()) {
-            System.out.print("Ingrese el nombre de este pokemon: ");
-            nombre_pokemon = scanner.nextLine().trim(); // Eliminamos espacios en blanco al inicio y al final
-
-            if (nombre_pokemon.isEmpty()) {
-                System.out.println("El nombre no puede estar vacío. Inténtalo de nuevo.");
-            }
-        }
-
-        tipo_pokemon = Pokemon.elegirTipo(confirmo);
-        ataques_pokemon = Pokemon.capturarAtaques(tipo_pokemon, confirmo, nombre_pokemon);
-        System.out.println("Las unidades de vida (HP) y la potencia de cada ataque son aleatorios, ¡Buena suerte!");
-
-        return new Pokemon(nombre_pokemon, tipo_pokemon, ataques_pokemon, hp_pokemon);
-    }
-
-    public static Tipo_ataque_pokemon elegirTipo(boolean confirmo){
-        int eleccion;
-        Tipo_ataque_pokemon tipo_pokemon;
-
-        if(confirmo == false){
-            eleccion = aleatorioInt(Tipo_ataque_pokemon.values().length-1, 0, false);
-            tipo_pokemon = Tipo_ataque_pokemon.values()[eleccion];
-        } else {
+        // ELECCIÓN AUTOMÁTICA
+        if(!confirmo) {
+            eleccion = aleatorioInt(TipoAtaquePokemon.values().length-1, 0, false);
+            tipoPokemon = TipoAtaquePokemon.values()[eleccion];
+        } 
+        // ELECCIÓN MANUAL
+        else {
             System.out.println("¡Su tipo!");
             int contador = 0;
-            for(Tipo_ataque_pokemon clase : Tipo_ataque_pokemon.values()){
+            // Mostrando Tipos disponibles
+            for(TipoAtaquePokemon clase : TipoAtaquePokemon.values()) {
                 contador++;
                 System.out.println(contador + ". " + clase);
             }
-            while(true){
-                if(scanner.hasNextInt()){
+            while(true) {
+                if(scanner.hasNextInt()) {
+                    // Para asegurar que es un entero
                     eleccion = scanner.nextInt();
                     scanner.nextLine();
-                    if(eleccion>0 && eleccion<=Tipo_ataque_pokemon.values().length){
-                        tipo_pokemon = Tipo_ataque_pokemon.values()[eleccion-1];
+                    if(eleccion>0 && eleccion<=TipoAtaquePokemon.values().length) {
+                        // Para asegurar que elección está dentro del rango
+                        tipoPokemon = TipoAtaquePokemon.values()[eleccion-1]; // Asignando tipoPokemon
                         break;
                     } else {
                         System.out.println("Por favor, selecciona una opción dentro del rango");
@@ -161,75 +90,170 @@ public class Pokemon extends SerVivo{
                 }
             }
         }
-        return tipo_pokemon;
+        return tipoPokemon;
     }
 
-    public void atacar(Pokemon enemigo){
-        System.out.println("Tus ataques (" + this.getNombre() + " / " + this.getTipo() + "):");
-        for (int i=0; i<ataques.size(); i++){
-            System.out.println((i+1) + ". " + ataques.get(i).getNombre() + " - daño: " + ataques.get(i).getPoder());
-        }
-            while(true){
-                if (scanner.hasNextInt()) {
-                    int eleccion = scanner.nextInt();
-                    scanner.nextLine();
-                    if (eleccion>0 && eleccion<=ataques.size()){
-                        Ataque ataqueElegido = ataques.get((eleccion-1));
-                        System.out.println(this.getNombre() + ", " + "¡" + ataqueElegido.getNombre() + "!");
-                        enemigo.daño(ataqueElegido.getPoder(), this);
-                        break;
+    // Método para que el usuario elija los ataques de acuerdo con el tipo de pokemon elegido
+    public static ArrayList<Ataque> capturarAtaques(TipoAtaquePokemon tipoPokemon, boolean confirmo, String nombrePokemon) {
+
+        // Inicializando variables locales
+        String nombreAtk;
+        float poderAtk;
+        int eleccion;
+        String[] arsenal = tipoPokemon.getAtaques(); // Se asignan los ataques correspondientes
+        ArrayList<Ataque> ataques = new ArrayList<>();
+        ArrayList<Integer> repetidos = new ArrayList<>();
+
+        // SELECCIÓN MANUAL
+        if (confirmo) {
+            // Mostrando ataques
+            System.out.println("ATAQUES DISPONIBLES (TIPO " + tipoPokemon + ")");
+            for(int i = 0; i < arsenal.length; i++) {
+                System.out.println((i+1) + "." + arsenal[i]);
+            }
+            for (int i = 0; i < 4; i++) { 
+                // Seleccionando ataque 1 x 1
+                System.out.println("Tu ataque # " + (i+1) + " (" + nombrePokemon + ")");
+                while(true) {
+                    if (scanner.hasNextInt()) { 
+                        // Para asegurar que es un entero
+                        eleccion = scanner.nextInt();
+                        scanner.nextLine();
+                        if(repetidos.contains(eleccion)) { 
+                            // Para evitar repeticiones
+                            while(repetidos.contains(eleccion)) {
+                                System.out.println("¡Selecciona un ataque diferente!");
+                                eleccion = scanner.nextInt();
+                                scanner.nextLine();
+                            }
+                        }
+                        if (eleccion > 0 && eleccion <= arsenal.length) { 
+                            // Para asegurar que la elección está dentro del rango
+                            repetidos.add(eleccion);
+                            nombreAtk = arsenal[(eleccion-1)];
+                            poderAtk = aleatorioFloat(100f, 10f); // Se elige poderAtk automáticamente
+                            ataques.add(new Ataque(nombreAtk, poderAtk)); // Se agrega ataque
+                            break;
+                        } else {
+                            System.out.println("¡Ey! Elige una opción válida");
+                            scanner.nextLine();
+                        }
                     } else {
-                        System.out.println("¡Ey! Elige una opción válida");
+                        System.out.println("Por favor, elige un número.");
                         scanner.nextLine();
                     }
                 }
-                else {
-                    System.out.println("Por favor, elige un número.");
+            }
+        } 
+        // SELECCIÓN AUTOMÁTICA
+        else if (!confirmo) {
+            for (int i = 0; i < 4; i++) {
+                nombreAtk = arsenal[aleatorioInt(arsenal.length-1, 0, true)];
+                poderAtk = aleatorioFloat(100f, 50f);
+                ataques.add(new Ataque(nombreAtk, poderAtk));
+            }
+        }
+        return ataques; // Se retorna ArrayList de ataques
+    }
+
+    // Uso del patrón "método de fábrica" para instanciar directamente al Pokemon en la clase
+    public static Pokemon instanciarPokemon(boolean confirmo) {
+        
+        // Inicializando variables locales
+        int hpPokemon;
+        TipoAtaquePokemon tipoPokemon;
+        String nombrePokemon = "";
+        ArrayList<Ataque> ataquesPokemon = new ArrayList<>();
+    
+        hpPokemon = aleatorioInt(300, 50, false); // Se elige hpPokemon automáticamente
+
+        System.out.println("¿quien ES ese POKEMON? 🤔🕶️");
+        System.out.println("¡Es hora de elegir tu Pokemon!");
+
+        // Para impedir que se registre un nombre vacío
+        while (nombrePokemon.isEmpty()) {
+            System.out.print("Ingrese el nombre de este pokemon: ");
+            nombrePokemon = scanner.nextLine().trim(); // Se eliminan espacios en blanco al inicio y al final
+
+            if (nombrePokemon.isEmpty()) {
+                System.out.println("El nombre no puede estar vacío. Inténtalo de nuevo.");
+            }
+        }
+
+        tipoPokemon = Pokemon.elegirTipo(confirmo);
+        ataquesPokemon = Pokemon.capturarAtaques(tipoPokemon, confirmo, nombrePokemon);
+        System.out.println("Las unidades de vida (HP) y la potencia de cada ataque son aleatorios, ¡Buena suerte!");
+
+        return new Pokemon(nombrePokemon, tipoPokemon, ataquesPokemon, hpPokemon); // Se retorna un nuevo Pokemon
+    }
+
+    // Método para elegir ataque
+    public void atacar(Pokemon enemigo) {
+
+        // Mostrando ataques disponibles
+        System.out.println("Tus ataques (" + this.getNombre() + " / " + this.getTipo() + "):");
+        for (int i = 0; i < ataques.size(); i++) {
+            System.out.println((i+1) + ". " + ataques.get(i).getNombre() + " - daño: " + ataques.get(i).getPoder());
+        }
+        while(true) {
+            if (scanner.hasNextInt()) {
+                // Para asegurar que es un entero
+                int eleccion = scanner.nextInt();
+                scanner.nextLine();
+                if (eleccion > 0 && eleccion <= ataques.size()){
+                    // Para que la elección esté dentro del rango
+                    Ataque ataqueElegido = ataques.get((eleccion-1));
+                    System.out.println(this.getNombre() + ", " + "¡" + ataqueElegido.getNombre() + "!");
+                    enemigo.daño(ataqueElegido.getPoder(), this); // Se invoca a la función que aplica el daño
+                    break;
+                } else {
+                    System.out.println("¡Ey! Elige una opción válida");
                     scanner.nextLine();
                 }
             }
+            else {
+                System.out.println("Por favor, elige un número.");
+                scanner.nextLine();
+            }
+        }
     }
 
-    public void daño(float poder_atk, Pokemon enemigo){
-        Tipo_ataque_pokemon[] counters;
-        counters = this.getTipo().getCounter();
+    // Método para calcular el daño recibido
+    public void daño(float atk, Pokemon enemigo){
+        TipoAtaquePokemon[] counters;
+        counters = this.getTipo().getCounter(); // Obteniendo counters
 
-        float atk = (float)(poder_atk * this.aumento);
-        if(Arrays.asList(counters).contains(enemigo.getTipo())){
+        if(Arrays.asList(counters).contains(enemigo.getTipo())) {
             System.out.println("¡Ataque súper efectivo! " + enemigo.getNombre() + " es counter de " + this.getNombre());
-            atk *= 1.3f;
+            atk *= 1.3f; // En caso de que el enemigo sea counter, aumenta poderAtk 30%
         }
         if(atk >= this.hp){
+            // Si el atk derrota al Pokemon
             this.hp = 0;
-            vivo = false;
+            vivo = !vivo; // Inhabilitar al Pokemon
         } else {
+            // Se resta poderAtk a hp del Pokemon
             this.hp -= atk;
             System.out.println(this.getNombre() + " ha recibido " + atk + " daño, hp = " + hp);
         }
     }
 
-    public void evolucionar(int contador) {
-        if (contador==1){
-            this.aumento = 1.5f;
-        } else if (contador==2){
-            this.aumento = 2f;
-        }
-        this.hp = (float)(this.hp * this.aumento);
-        System.out.println("¡ " + this.getNombre() + " ha evolucionado!, hp++ y atk++");
-    }
-
-    public static float aleatorioFloat(float max, float min){
+    // Método aleatorio para Float
+    public static float aleatorioFloat(float max, float min) {
         Random r = new Random(); 
         float resultado = r.nextFloat() * (max - min) + min;
         return resultado;
     }
 
-    private static int aleatorioInt(int max, int min, boolean repetirImporta){
+    // Método aleatorio para enteros
+    private static int aleatorioInt(int max, int min, boolean repetirImporta) {
         ArrayList<Integer> repetidos = new ArrayList<>();
         Random r = new Random(); 
         int resultado = r.nextInt(max - min + 1) + min;
-        if (repetirImporta == true){
-            while(repetidos.contains(resultado)){   
+
+        if (repetirImporta){
+            // Para evitar repetición de ataques. En ese caso particular repetirImporta
+            while(repetidos.contains(resultado)) {   
                 resultado = r.nextInt(max - min + 1) + min;
             }
             repetidos.add(resultado);
@@ -237,13 +261,14 @@ public class Pokemon extends SerVivo{
         return resultado;
     }
 
+    // Métodos heredados y sobrescritos
     @Override
-    public void entrada(){
+    public void entrada() {
         System.out.println(getNombre() + ", ¡Yo te elijo!");
     }
 
     @Override
-    public void celebracion(){
+    public void celebracion() {
         System.out.println("Yupii");
     }
 }

@@ -1,7 +1,10 @@
 public class Ataque {
+
+    // Atributos
     private String nombre;
     private float poder;
 
+    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
@@ -15,6 +18,7 @@ public class Ataque {
         this.poder = poder;
     }
 
+    // Constructor
     public Ataque(String nombre, float poder){
         this.nombre = nombre;
         this.poder = poder;

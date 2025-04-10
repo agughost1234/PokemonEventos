@@ -1,44 +1,33 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Random;
-public class Entrenador extends SerVivo{
-    private final ArrayList<Pokemon> equipo = new ArrayList<>();
+public class Entrenador extends SerVivo {
 
+    // Atributos
+    private ArrayList<Pokemon> equipo = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    // Constructor
     public Entrenador(String nombre) {
+        // Heredando nombre
         super(nombre);
         capturarPokemon();
     }
 
 
-
+    // Getter
     public ArrayList<Pokemon> getEquipo() {
         return equipo;
     }
-
-    public void nombrarEquipo() {
-
-        System.out.println("Nombre del entrenador: " + getNombre());
-        System.out.println("************");
-        System.out.println("Pokemones en el equipo: ");
-        for (Pokemon pokemon : equipo) {
-             System.out.println("Nombre del pokemon: " + pokemon.getNombre());
-                System.out.println("Tipo del pokemon: " + pokemon.getTipo());
-                System.out.println("Hp del pokemon: " + pokemon.getHp());
-                System.out.println("************");
-                
-        }
-       
-    }
-
-
     
-//Factory method para capturar un entrenador por consola sin necesidad de instanciar un objeto con new
+    //Factory method para capturar un entrenador por consola sin necesidad de instanciar un objeto con new
     public static Entrenador capturarEntrenador() {
+
+        // Inicializando variables locales
         String nombre = "";
-        Scanner scanner = new Scanner(System.in);
         System.out.println("************");
         System.out.println("¡Hola, espero estés listo para comenzar una aventura pokemon!");
-        //trim()  para eliminar los espacios en blanco al inicio y al final de la cadena
+
+        // Para evitar que ingrese nombre vacío
         while (nombre.isEmpty()) {
             System.out.print("Ingrese el nombre del entrenador: ");
             nombre = scanner.nextLine().trim(); // Eliminamos espacios en blanco al inicio y al final
@@ -53,20 +42,20 @@ public class Entrenador extends SerVivo{
         System.out.println("************");
         System.out.println("¡Comencemos!");
         System.out.println("************");
-        return new Entrenador(nombre);
+        return new Entrenador(nombre); // Retorna nuevo entrenador
     }
 
+    // Método para crear el equipo de 3 Pokemones
     public void capturarPokemon() {
     // preguntar si quiere crear equipo manualmente o aleatoriamente
     boolean equipoManual = true;
-    Scanner scanner = new Scanner(System.in);
     System.out.println("¿Quieres capturar un pokemon de forma manual? (s/n)");
     String respuesta = scanner.nextLine().trim().toLowerCase();
     while (true) {
         if (respuesta.equals("s")) {
             break;
         } else if (respuesta.equals("n")) {
-            equipoManual = false;
+            equipoManual = false; // Elegir automáticamente
             break;
         } else {
             System.out.println("Respuesta no válida. Por favor, ingresa 's' o 'n'.");
@@ -74,12 +63,13 @@ public class Entrenador extends SerVivo{
         }
     }
   for (int i = 0; i < 3; i++) {
-       equipo.add(Pokemon.InstanciarPokemon(equipoManual));
+       equipo.add(Pokemon.instanciarPokemon(equipoManual)); // Se instancian automáticamente
       
   }
 
 } 
 
+    // Métodos heredados y sobrescritos
     @Override
     public void entrada(){
         System.out.println("Me llamo " + getNombre() + ", ¡Y seré tu contrincante!");
