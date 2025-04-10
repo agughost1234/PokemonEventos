@@ -6,6 +6,7 @@ public class Entrenador extends SerVivo{
 
     public Entrenador(String nombre) {
         super(nombre);
+        capturarPokemon();
     }
 
 
@@ -33,12 +34,19 @@ public class Entrenador extends SerVivo{
     
 //Factory method para capturar un entrenador por consola sin necesidad de instanciar un objeto con new
     public static Entrenador capturarEntrenador() {
+        String nombre = "";
         Scanner scanner = new Scanner(System.in);
         System.out.println("************");
         System.out.println("¡Hola, espero estés listo para comenzar una aventura pokemon!");
-        System.out.print("Ingrese el nombre del entrenador: ");
         //trim()  para eliminar los espacios en blanco al inicio y al final de la cadena
-        String nombre = scanner.nextLine().trim();
+        while (nombre.isEmpty()) {
+            System.out.print("Ingrese el nombre del entrenador: ");
+            nombre = scanner.nextLine().trim(); // Eliminamos espacios en blanco al inicio y al final
+
+            if (nombre.isEmpty()) {
+                System.out.println("El nombre no puede estar vacío. Inténtalo de nuevo.");
+            }
+        }
         System.out.println("************");
         System.out.println("Bienvenido " + nombre + "!");
         System.out.println("¡Prepárate para capturar Pokémons y convertirte en un maestro Pokémon!");

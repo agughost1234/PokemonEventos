@@ -57,7 +57,7 @@ public class Batalla {
             }
 
             // El primer Pokémon ataca
-            System.out.println("\n" + primero.getNombre() + " ataca:");
+            System.out.println("\n" + entrenadorPrimero.getNombre() + " ataca:");
             primero.atacar(segundo);
 
             // Si el segundo muere, se elimina de la lista y se elige uno nuevo
@@ -79,7 +79,7 @@ public class Batalla {
             }
 
             // El segundo Pokémon contraataca
-            System.out.println("\n" + segundo.getNombre() + " contraataca:");
+            System.out.println("\n" + entrenadorSegundo.getNombre() + " contraataca:");
             segundo.atacar(primero);
 
             // Si el primero muere, se elimina y se elige uno nuevo
@@ -104,8 +104,10 @@ public class Batalla {
         // Mensaje final con el ganador
         if (disponibles1.isEmpty()) {
             System.out.println("\n ¡" + e2.getNombre() + " gana la batalla!");
+            e2.celebracion();
         } else {
             System.out.println("\n ¡" + e1.getNombre() + " gana la batalla!");
+            e1.celebracion();
         }
     }
 
@@ -129,10 +131,22 @@ public class Batalla {
             System.out.println((i + 1) + ". " + disponibles.get(i).getNombre() + " (HP: " + disponibles.get(i).getHp() + ")");
         }
         int opcion;
-        do {
-            System.out.print("Elige tu Pokémon (1-" + disponibles.size() + "): ");
-            opcion = scanner.nextInt();
-        } while (opcion < 1 || opcion > disponibles.size());
-        return disponibles.get(opcion - 1);
+        while(true){
+            if (scanner.hasNextInt()) {
+                opcion = scanner.nextInt();
+                scanner.nextLine();
+                if (opcion<=disponibles.size() && opcion>0){
+                    disponibles.get(opcion - 1).entrada();
+                    return disponibles.get(opcion - 1);
+                } else {
+                    System.out.println("¡Ey! Elige una opción válida");
+                    scanner.nextLine();
+                }
+            }
+            else {
+                System.out.println("Por favor, elige un número.");
+                scanner.nextLine();
+            }
+        }
     }
 }
