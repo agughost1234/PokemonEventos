@@ -1,8 +1,9 @@
 public class Main {
-
     public static void main(String[] args) throws Exception {
-        Entrenador entrenador = Entrenador.capturarEntrenador();
-        entrenador.capturarPokemon();
-        entrenador.nombrarEquipo();
+
+        Entrenador e1 = Entrenador.capturarEntrenador();
+        Entrenador e2 = Entrenador.capturarEntrenador();
+        
+        Batalla.batallaPorEquipos(e1, e2);
     }
 }
