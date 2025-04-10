@@ -8,6 +8,8 @@ public class Entrenador extends SerVivo{
         super(nombre);
     }
 
+
+
     public ArrayList<Pokemon> getEquipo() {
         return equipo;
     }
@@ -22,6 +24,7 @@ public class Entrenador extends SerVivo{
                 System.out.println("Tipo del pokemon: " + pokemon.getTipo());
                 System.out.println("Hp del pokemon: " + pokemon.getHp());
                 System.out.println("************");
+                
         }
        
     }
@@ -47,15 +50,15 @@ public class Entrenador extends SerVivo{
 
     public void capturarPokemon() {
     // preguntar si quiere crear equipo manualmente o aleatoriamente
-    boolean equipoAleatorio = false;
+    boolean equipoManual = true;
     Scanner scanner = new Scanner(System.in);
-    System.out.println("¿Quieres capturar un pokemon? (s/n)");
+    System.out.println("¿Quieres capturar un pokemon de forma manual? (s/n)");
     String respuesta = scanner.nextLine().trim().toLowerCase();
     while (true) {
         if (respuesta.equals("s")) {
             break;
         } else if (respuesta.equals("n")) {
-            equipoAleatorio = true;
+            equipoManual = false;
             break;
         } else {
             System.out.println("Respuesta no válida. Por favor, ingresa 's' o 'n'.");
@@ -63,7 +66,7 @@ public class Entrenador extends SerVivo{
         }
     }
   for (int i = 0; i < 3; i++) {
-      //  equipo.add(Pokemon.instanciarPokemon(equipoAleatorio));
+       equipo.add(Pokemon.InstanciarPokemon(equipoManual));
       
   }
 
