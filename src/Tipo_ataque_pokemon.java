@@ -9,7 +9,7 @@ public enum Tipo_ataque_pokemon {
 
 // Atributos de cada tipo de ataque: 'ataques' es una lista de nombres de ataques que pertenecen a ese tipo.
     private String[] ataques;
-    private TipoAtaquePokemon[] counter;
+    private Tipo_ataque_pokemon[] counter;
 
 // Constructor del enum: recibe los ataques y los counters
     private Tipo_ataque_pokemon(String[] ataques, Tipo_ataque_pokemon[] counter) {
@@ -27,10 +27,10 @@ public enum Tipo_ataque_pokemon {
      // Bloque estático: se ejecuta una vez al cargar la clase
     // Aquí es donde realmente se asignan los tipos que contrarrestan a cada tipo de pokemon
     static { 
-        FUEGO.counter = new TipoAtaquePokemon[]{AGUA};
-        AGUA.counter = new TipoAtaquePokemon[]{PLANTA};
-        PLANTA.counter = new TipoAtaquePokemon[]{FUEGO};
-        ELECTRICO.counter = new TipoAtaquePokemon[]{TIERRA, PLANTA};
-        TIERRA.counter = new TipoAtaquePokemon[]{ELECTRICO, AGUA};
+        FUEGO.counter = new Tipo_ataque_pokemon[]{AGUA};
+        AGUA.counter = new Tipo_ataque_pokemon[]{PLANTA};
+        PLANTA.counter = new Tipo_ataque_pokemon[]{FUEGO};
+        ELECTRICO.counter = new Tipo_ataque_pokemon[]{TIERRA, PLANTA};
+        TIERRA.counter = new Tipo_ataque_pokemon[]{ELECTRICO, AGUA};
     }
 }

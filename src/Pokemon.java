@@ -11,10 +11,10 @@ public class Pokemon extends SerVivo{
     private float hp;
     private float aumento = 1.0f; // CONTROL DE EVOLUCIÓN DE LOS POKEMONES
 
-    public TipoAtaquePokemon getTipo() {
+    public Tipo_ataque_pokemon getTipo() {
         return tipo;
     }
-    public void setTipo(TipoAtaquePokemon tipo) {
+    public void setTipo(Tipo_ataque_pokemon tipo) {
         this.tipo = tipo;
     }
     public ArrayList<Ataque> getAtaques() {
@@ -38,7 +38,7 @@ public class Pokemon extends SerVivo{
         this.vivo = vivo;
     }
 
-    public Pokemon(String nombre, TipoAtaquePokemon tipo, ArrayList<Ataque> ataques, float hp){
+    public Pokemon(String nombre, Tipo_ataque_pokemon tipo, ArrayList<Ataque> ataques, float hp){
         super(nombre);
         this.tipo = tipo;
         this.ataques = ataques;
@@ -53,7 +53,7 @@ public class Pokemon extends SerVivo{
         ArrayList<Ataque> ataques = new ArrayList<>();
         ArrayList<Integer> repetidos = new ArrayList<>();
 
-        for (TipoAtaquePokemon clase: TipoAtaquePokemon.values()){
+        for (Tipo_ataque_pokemon clase: Tipo_ataque_pokemon.values()){
             if(tipo_pokemon == clase){
                 arsenal = clase.getAtaques();
                 if (confirmo == true){
@@ -132,7 +132,7 @@ public class Pokemon extends SerVivo{
         } else {
             System.out.println("¡Su tipo!");
             int contador = 0;
-            for(TipoAtaquePokemon clase : TipoAtaquePokemon.values()){
+            for(Tipo_ataque_pokemon clase : Tipo_ataque_pokemon.values()){
                 contador++;
                 System.out.println(contador + ". " + clase);
             }
