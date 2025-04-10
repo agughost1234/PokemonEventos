@@ -82,16 +82,18 @@ public class Pokemon extends SerVivo{
                                     break;
                                 } else {
                                     System.out.println("¡Ey! Elige una opción válida");
+                                    scanner.nextLine();
                                 }
                             } else {
                                 System.out.println("Por favor, elige un número.");
+                                scanner.nextLine();
                             }
                         }
                     }
                 } else if (confirmo == false){
                     for (int i=0; i<4; i++){
-                        nombre_atk = arsenal[aleatorioInt(arsenal.length, 0, true)];
-                        poder_atk = aleatorioFloat(100f, 10f);
+                        nombre_atk = arsenal[aleatorioInt(arsenal.length-1, 0, true)];
+                        poder_atk = aleatorioFloat(100f, 50f);
                         ataques.add(new Ataque(nombre_atk, poder_atk));
                     }
                 }
@@ -104,16 +106,22 @@ public class Pokemon extends SerVivo{
 
         int hp_pokemon;
         Tipo_ataque_pokemon tipo_pokemon;
-        String nombre_pokemon;
+        String nombre_pokemon = "";
         ArrayList<Ataque> ataques_pokemon = new ArrayList<>();
     
-        hp_pokemon = aleatorioInt(1000, 100, false);
+        hp_pokemon = aleatorioInt(300, 50, false);
 
         System.out.println("¿quien ES ese POKEMON? 🤔🕶️");
         System.out.println("¡Es hora de elegir tu Pokemon!");
 
-        System.out.println("¿Cuál es su nombre?");
-        nombre_pokemon = scanner.nextLine().trim();
+        while (nombre_pokemon.isEmpty()) {
+            System.out.print("Ingrese el nombre de este pokemon: ");
+            nombre_pokemon = scanner.nextLine().trim(); // Eliminamos espacios en blanco al inicio y al final
+
+            if (nombre_pokemon.isEmpty()) {
+                System.out.println("El nombre no puede estar vacío. Inténtalo de nuevo.");
+            }
+        }
 
         tipo_pokemon = Pokemon.elegirTipo(confirmo);
         ataques_pokemon = Pokemon.capturarAtaques(tipo_pokemon, confirmo, nombre_pokemon);
@@ -127,7 +135,7 @@ public class Pokemon extends SerVivo{
         Tipo_ataque_pokemon tipo_pokemon;
 
         if(confirmo == false){
-            eleccion = aleatorioInt(Tipo_ataque_pokemon.values().length, 0, false);
+            eleccion = aleatorioInt(Tipo_ataque_pokemon.values().length-1, 0, false);
             tipo_pokemon = Tipo_ataque_pokemon.values()[eleccion];
         } else {
             System.out.println("¡Su tipo!");
@@ -145,9 +153,11 @@ public class Pokemon extends SerVivo{
                         break;
                     } else {
                         System.out.println("Por favor, selecciona una opción dentro del rango");
+                        scanner.nextLine();
                     }
                 } else {
                     System.out.println("¡Elige un número! 😠");
+                    scanner.nextLine();
                 }
             }
         }
@@ -155,7 +165,7 @@ public class Pokemon extends SerVivo{
     }
 
     public void atacar(Pokemon enemigo){
-        System.out.println("Tus ataques (" + this.getNombre() + "):");
+        System.out.println("Tus ataques (" + this.getNombre() + " / " + this.getTipo() + "):");
         for (int i=0; i<ataques.size(); i++){
             System.out.println((i+1) + ". " + ataques.get(i).getNombre() + " - daño: " + ataques.get(i).getPoder());
         }
@@ -170,10 +180,12 @@ public class Pokemon extends SerVivo{
                         break;
                     } else {
                         System.out.println("¡Ey! Elige una opción válida");
+                        scanner.nextLine();
                     }
                 }
                 else {
                     System.out.println("Por favor, elige un número.");
+                    scanner.nextLine();
                 }
             }
     }
@@ -190,7 +202,6 @@ public class Pokemon extends SerVivo{
         if(atk >= this.hp){
             this.hp = 0;
             vivo = false;
-            System.out.println(this.getNombre() + " ha sido derrotado...");
         } else {
             this.hp -= atk;
             System.out.println(this.getNombre() + " ha recibido " + atk + " daño, hp = " + hp);
