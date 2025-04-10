@@ -1,5 +1,6 @@
 public abstract class SerVivo {
-    
+
+    // Esta es la clase Padre de Entrenador y Pokemon
     private String nombre;
 
     public String getNombre() {
@@ -10,15 +11,17 @@ public abstract class SerVivo {
         this.nombre = nombre;
     }
 
+    // Constructor
     public SerVivo(String nombre){
         this.nombre = nombre;
     }
 
-    public void entrada(){
+    // Método de saludo
+    public void entrada() {
         System.out.println("Hola");
     }
 
-    public void celebracion(){
+    public void celebracion() {
         System.out.println("¡Victoria!");
     }
 }
