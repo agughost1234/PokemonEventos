@@ -4,17 +4,17 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Pokemon extends SerVivo{
-    private Tipo_ataque_pokemon tipo;
+    private TipoAtaquePokemon tipo;
     private ArrayList<Ataque> ataques = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private boolean vivo = true;
     private float hp;
     private float aumento = 1.0f; // CONTROL DE EVOLUCIÓN DE LOS POKEMONES
 
-    public Tipo_ataque_pokemon getTipo() {
+    public TipoAtaquePokemon getTipo() {
         return tipo;
     }
-    public void setTipo(Tipo_ataque_pokemon tipo) {
+    public void setTipo(TipoAtaquePokemon tipo) {
         this.tipo = tipo;
     }
     public ArrayList<Ataque> getAtaques() {
@@ -38,14 +38,14 @@ public class Pokemon extends SerVivo{
         this.vivo = vivo;
     }
 
-    public Pokemon(String nombre, Tipo_ataque_pokemon tipo, ArrayList<Ataque> ataques, float hp){
+    public Pokemon(String nombre, TipoAtaquePokemon tipo, ArrayList<Ataque> ataques, float hp){
         super(nombre);
         this.tipo = tipo;
         this.ataques = ataques;
         this.hp = hp;
     }
 
-    public static ArrayList<Ataque> capturarAtaques(Tipo_ataque_pokemon tipo_pokemon, boolean confirmo, String nombre_pokemon){
+    public static ArrayList<Ataque> capturarAtaques(TipoAtaquePokemon tipo_pokemon, boolean confirmo, String nombre_pokemon){
         String nombre_atk;
         float poder_atk;
         int eleccion;
@@ -53,7 +53,7 @@ public class Pokemon extends SerVivo{
         ArrayList<Ataque> ataques = new ArrayList<>();
         ArrayList<Integer> repetidos = new ArrayList<>();
 
-        for (Tipo_ataque_pokemon clase: Tipo_ataque_pokemon.values()){
+        for (TipoAtaquePokemon clase: TipoAtaquePokemon.values()){
             if(tipo_pokemon == clase){
                 arsenal = clase.getAtaques();
                 if (confirmo == true){
@@ -105,7 +105,7 @@ public class Pokemon extends SerVivo{
     public static Pokemon InstanciarPokemon(boolean confirmo){
 
         int hp_pokemon;
-        Tipo_ataque_pokemon tipo_pokemon;
+        TipoAtaquePokemon tipo_pokemon;
         String nombre_pokemon = "";
         ArrayList<Ataque> ataques_pokemon = new ArrayList<>();
     
@@ -130,17 +130,17 @@ public class Pokemon extends SerVivo{
         return new Pokemon(nombre_pokemon, tipo_pokemon, ataques_pokemon, hp_pokemon);
     }
 
-    public static Tipo_ataque_pokemon elegirTipo(boolean confirmo){
+    public static TipoAtaquePokemon elegirTipo(boolean confirmo){
         int eleccion;
-        Tipo_ataque_pokemon tipo_pokemon;
+        TipoAtaquePokemon tipo_pokemon;
 
         if(confirmo == false){
-            eleccion = aleatorioInt(Tipo_ataque_pokemon.values().length-1, 0, false);
-            tipo_pokemon = Tipo_ataque_pokemon.values()[eleccion];
+            eleccion = aleatorioInt(TipoAtaquePokemon.values().length-1, 0, false);
+            tipo_pokemon = TipoAtaquePokemon.values()[eleccion];
         } else {
             System.out.println("¡Su tipo!");
             int contador = 0;
-            for(Tipo_ataque_pokemon clase : Tipo_ataque_pokemon.values()){
+            for(TipoAtaquePokemon clase : TipoAtaquePokemon.values()){
                 contador++;
                 System.out.println(contador + ". " + clase);
             }
@@ -148,8 +148,8 @@ public class Pokemon extends SerVivo{
                 if(scanner.hasNextInt()){
                     eleccion = scanner.nextInt();
                     scanner.nextLine();
-                    if(eleccion>0 && eleccion<=Tipo_ataque_pokemon.values().length){
-                        tipo_pokemon = Tipo_ataque_pokemon.values()[eleccion-1];
+                    if(eleccion>0 && eleccion<=TipoAtaquePokemon.values().length){
+                        tipo_pokemon = TipoAtaquePokemon.values()[eleccion-1];
                         break;
                     } else {
                         System.out.println("Por favor, selecciona una opción dentro del rango");
@@ -191,7 +191,7 @@ public class Pokemon extends SerVivo{
     }
 
     public void daño(float poder_atk, Pokemon enemigo){
-        Tipo_ataque_pokemon[] counters;
+        TipoAtaquePokemon[] counters;
         counters = this.getTipo().getCounter();
 
         float atk = (float)(poder_atk * this.aumento);
