@@ -3,7 +3,6 @@ import java.util.Random;
 import java.util.Scanner;    
 
 public class Batalla {
-    
     // Objetos globales
     static Scanner scanner = new Scanner(System.in); // Leer entradas por consola
     static Random random = new Random();             // Generar aleatoriedad
