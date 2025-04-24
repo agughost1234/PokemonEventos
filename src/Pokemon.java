@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Pokemon extends SerVivo {
 
     // Inicializando atributos
-
     private TipoAtaquePokemon tipo;
     private ArrayList<Ataque> ataques = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
@@ -14,7 +13,6 @@ public class Pokemon extends SerVivo {
     private float hp;
 
     // Getters y Setters
-    
     public TipoAtaquePokemon getTipo() {
         return tipo;
     }
@@ -45,7 +43,6 @@ public class Pokemon extends SerVivo {
     // Constructor
     public Pokemon(String nombre, TipoAtaquePokemon tipo, ArrayList<Ataque> ataques, float hp) {
         // Trayendo herencia: atributo nombre
-
         super(nombre);
         this.tipo = tipo;
         this.ataques = ataques;
@@ -106,7 +103,7 @@ public class Pokemon extends SerVivo {
         String[] arsenal = tipoPokemon.getAtaques(); // Se asignan los ataques correspondientes
         ArrayList<Ataque> ataques = new ArrayList<>();
         ArrayList<Integer> repetidos = new ArrayList<>();
-        
+
         // SELECCIÓN MANUAL
         if (confirmo) {
             // Mostrando ataques
@@ -126,18 +123,6 @@ public class Pokemon extends SerVivo {
                             // Para evitar repeticiones
                             while(repetidos.contains(eleccion)) {
                                 System.out.println("¡Selecciona un ataque diferente!");
-        for (TipoAtaquePokemon clase: TipoAtaquePokemon.values()){
-            if(tipo_pokemon == clase){
-                arsenal = clase.getAtaques();
-                if (confirmo == true){
-                    System.out.println("ATAQUES DISPONIBLES (TIPO " + tipo_pokemon + ")");
-                    for(int i=0; i<arsenal.length; i++){
-                        System.out.println((i+1) + "." + arsenal[i]);
-                    }
-                    for (int i=0; i<4; i++){
-                        System.out.println("Tu ataque # " + (i+1) + " (" + nombre_pokemon + ")");
-                        while(true){
-                            if (scanner.hasNextInt()){
                                 eleccion = scanner.nextInt();
                                 scanner.nextLine();
                             }
@@ -179,7 +164,6 @@ public class Pokemon extends SerVivo {
         TipoAtaquePokemon tipoPokemon;
         String nombrePokemon = "";
         ArrayList<Ataque> ataquesPokemon = new ArrayList<>();
-        
     
         hpPokemon = aleatorioInt(300, 50, false); // Se elige hpPokemon automáticamente
 
@@ -207,41 +191,6 @@ public class Pokemon extends SerVivo {
     public void atacar(Pokemon enemigo) {
 
         // Mostrando ataques disponibles
-    public static TipoAtaquePokemon elegirTipo(boolean confirmo){
-        int eleccion;
-        TipoAtaquePokemon tipo_pokemon;
-
-        if(confirmo == false){
-            eleccion = aleatorioInt(TipoAtaquePokemon.values().length-1, 0, false);
-            tipo_pokemon = TipoAtaquePokemon.values()[eleccion];
-        } else {
-            System.out.println("¡Su tipo!");
-            int contador = 0;
-            for(TipoAtaquePokemon clase : TipoAtaquePokemon.values()){
-                contador++;
-                System.out.println(contador + ". " + clase);
-            }
-            while(true){
-                if(scanner.hasNextInt()){
-                    eleccion = scanner.nextInt();
-                    scanner.nextLine();
-                    if(eleccion>0 && eleccion<=TipoAtaquePokemon.values().length){
-                        tipo_pokemon = TipoAtaquePokemon.values()[eleccion-1];
-                        break;
-                    } else {
-                        System.out.println("Por favor, selecciona una opción dentro del rango");
-                        scanner.nextLine();
-                    }
-                } else {
-                    System.out.println("¡Elige un número! 😠");
-                    scanner.nextLine();
-                }
-            }
-        }
-        return tipo_pokemon;
-    }
-
-    public void atacar(Pokemon enemigo){
         System.out.println("Tus ataques (" + this.getNombre() + " / " + this.getTipo() + "):");
         for (int i = 0; i < ataques.size(); i++) {
             System.out.println((i+1) + ". " + ataques.get(i).getNombre() + " - daño: " + ataques.get(i).getPoder());
@@ -268,6 +217,7 @@ public class Pokemon extends SerVivo {
             }
         }
     }
+
     // Método para calcular el daño recibido
     public void daño(float atk, Pokemon enemigo){
         TipoAtaquePokemon[] counters;
