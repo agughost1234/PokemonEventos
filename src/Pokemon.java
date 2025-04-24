@@ -200,7 +200,7 @@ public class Pokemon extends SerVivo {
                 // Para asegurar que es un entero
                 int eleccion = scanner.nextInt();
                 scanner.nextLine();
-                if (eleccion > 0 && eleccion <= ataques.size()){
+                if (eleccion > 0 && eleccion <= ataques.size()) {
                     // Para que la elección esté dentro del rango
                     Ataque ataqueElegido = ataques.get((eleccion-1));
                     System.out.println(this.getNombre() + ", " + "¡" + ataqueElegido.getNombre() + "!");
@@ -219,7 +219,7 @@ public class Pokemon extends SerVivo {
     }
 
     // Método para calcular el daño recibido
-    public void daño(float atk, Pokemon enemigo){
+    public void daño(float atk, Pokemon enemigo) {
         TipoAtaquePokemon[] counters;
         counters = this.getTipo().getCounter(); // Obteniendo counters
 
@@ -227,7 +227,7 @@ public class Pokemon extends SerVivo {
             System.out.println("¡Ataque súper efectivo! " + enemigo.getNombre() + " es counter de " + this.getNombre());
             atk *= 1.3f; // En caso de que el enemigo sea counter, aumenta poderAtk 30%
         }
-        if(atk >= this.hp){
+        if(atk >= this.hp) {
             // Si el atk derrota al Pokemon
             this.hp = 0;
             vivo = !vivo; // Inhabilitar al Pokemon
@@ -251,7 +251,7 @@ public class Pokemon extends SerVivo {
         Random r = new Random(); 
         int resultado = r.nextInt(max - min + 1) + min;
 
-        if (repetirImporta){
+        if (repetirImporta) {
             // Para evitar repetición de ataques. En ese caso particular repetirImporta
             while(repetidos.contains(resultado)) {   
                 resultado = r.nextInt(max - min + 1) + min;
