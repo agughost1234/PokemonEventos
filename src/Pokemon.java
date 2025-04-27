@@ -11,6 +11,7 @@ public class Pokemon extends SerVivo {
     private static Scanner scanner = new Scanner(System.in);
     private boolean vivo; // vivo se encanga de inhabilitar al Pokemon cuando hp=0
     private float hp;
+    ArrayList<Integer> repetidos = new ArrayList<>();
 
     // Getters y Setters
     public TipoAtaquePokemon getTipo() {
@@ -51,7 +52,7 @@ public class Pokemon extends SerVivo {
     }
 
     // Método para que el usuario elija el tipo de Pokemon
-    public static TipoAtaquePokemon elegirTipo(boolean confirmo) {
+    public static TipoAtaquePokemon elegirTipo(boolean confirmo, ArrayList<Integer> repetidos) {
 
         // Inicializando variables locales
         int eleccion;
@@ -59,7 +60,7 @@ public class Pokemon extends SerVivo {
 
         // ELECCIÓN AUTOMÁTICA
         if(!confirmo) {
-            eleccion = aleatorioInt(TipoAtaquePokemon.values().length-1, 0, false);
+            eleccion = aleatorioInt(TipoAtaquePokemon.values().length-1, 0, false, repetidos);
             tipoPokemon = TipoAtaquePokemon.values()[eleccion];
         } 
         // ELECCIÓN MANUAL
@@ -148,7 +149,7 @@ public class Pokemon extends SerVivo {
         // SELECCIÓN AUTOMÁTICA
         else if (!confirmo) {
             for (int i = 0; i < 4; i++) {
-                nombreAtk = arsenal[aleatorioInt(arsenal.length-1, 0, true)];
+                nombreAtk = arsenal[aleatorioInt(arsenal.length-1, 0, true, repetidos)];
                 poderAtk = aleatorioFloat(100f, 50f);
                 ataques.add(new Ataque(nombreAtk, poderAtk));
             }
@@ -157,7 +158,7 @@ public class Pokemon extends SerVivo {
     }
 
     // Uso del patrón "método de fábrica" para instanciar directamente al Pokemon en la clase
-    public static Pokemon instanciarPokemon(boolean confirmo) {
+    public static Pokemon instanciarPokemon(boolean confirmo, ArrayList<Integer> repetidos) {
         
         // Inicializando variables locales
         int hpPokemon;
@@ -165,7 +166,7 @@ public class Pokemon extends SerVivo {
         String nombrePokemon = "";
         ArrayList<Ataque> ataquesPokemon = new ArrayList<>();
     
-        hpPokemon = aleatorioInt(300, 50, false); // Se elige hpPokemon automáticamente
+        hpPokemon = aleatorioInt(300, 50, false, repetidos); // Se elige hpPokemon automáticamente
 
         System.out.println("¿quien ES ese POKEMON? 🤔🕶️");
         System.out.println("¡Es hora de elegir tu Pokemon!");
@@ -180,7 +181,7 @@ public class Pokemon extends SerVivo {
             }
         }
 
-        tipoPokemon = Pokemon.elegirTipo(confirmo);
+        tipoPokemon = Pokemon.elegirTipo(confirmo, repetidos);
         ataquesPokemon = Pokemon.capturarAtaques(tipoPokemon, confirmo, nombrePokemon);
         System.out.println("Las unidades de vida (HP) y la potencia de cada ataque son aleatorios, ¡Buena suerte!");
 
@@ -246,8 +247,7 @@ public class Pokemon extends SerVivo {
     }
 
     // Método aleatorio para enteros
-    private static int aleatorioInt(int max, int min, boolean repetirImporta) {
-        ArrayList<Integer> repetidos = new ArrayList<>();
+    private static int aleatorioInt(int max, int min, boolean repetirImporta, ArrayList<Integer> repetidos) {
         Random r = new Random(); 
         int resultado = r.nextInt(max - min + 1) + min;
 
