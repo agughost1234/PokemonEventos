@@ -11,7 +11,6 @@ public class Pokemon extends SerVivo {
     private static Scanner scanner = new Scanner(System.in);
     private boolean vivo; // vivo se encanga de inhabilitar al Pokemon cuando hp=0
     private float hp;
-    ArrayList<Integer> repetidos = new ArrayList<>();
 
     // Getters y Setters
     public TipoAtaquePokemon getTipo() {

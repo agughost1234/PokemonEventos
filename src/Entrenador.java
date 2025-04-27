@@ -5,6 +5,7 @@ public class Entrenador extends SerVivo {
     // Atributos
     private ArrayList<Pokemon> equipo = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
+    ArrayList<Integer> repetidos = new ArrayList<>();
 
     // Constructor
     public Entrenador(String nombre) {
@@ -63,7 +64,7 @@ public class Entrenador extends SerVivo {
         }
     }
   for (int i = 0; i < 3; i++) {
-       equipo.add(Pokemon.instanciarPokemon(equipoManual)); // Se instancian automáticamente
+       equipo.add(Pokemon.instanciarPokemon(equipoManual, repetidos)); // Se instancian automáticamente
       
   }
 
